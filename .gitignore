@@ -356,3 +356,7 @@ binaryoutput
 # large, machine-local artifact; only the checked-in config is tracked.
 .codegraph/
 !codegraph.json
+
+AGENTS.MD
+references/*
+!references/dislocationCPFEImplementation.md
