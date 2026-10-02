@@ -186,6 +186,7 @@
     slip_sys_file_name = input_slip_sys.txt
     slip_increment_tolerance = 2e-2
     stol = 1e-4
+    resistance_tol = 1e-4
   []
   [climb_xtalpl]
     type = CrystalPlasticityDislocationCreepUpdate
