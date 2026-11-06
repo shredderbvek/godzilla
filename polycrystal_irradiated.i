@@ -309,7 +309,7 @@
   [busso_orowan_update]
     type = CrystalPlasticityBussoOrowanIrradiationUpdate
     number_slip_systems = 12
-    slip_sys_file_name = input_files/slip_systems_FCC.txt
+    slip_sys_file_name = slip_systems_FCC.txt
     slip_increment_tolerance = 0.05
 
     # Flow rule parameters (Liu et al. Table 4)
