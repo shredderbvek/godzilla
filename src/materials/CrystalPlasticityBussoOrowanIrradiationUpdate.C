@@ -3,7 +3,7 @@
 #include <cmath>
 #include <algorithm>
 
-registerMooseObject("SolidMechanicsApp", CrystalPlasticityBussoOrowanIrradiationUpdate);
+registerMooseObject("godzillaApp", CrystalPlasticityBussoOrowanIrradiationUpdate);
 
 InputParameters
 CrystalPlasticityBussoOrowanIrradiationUpdate::validParams()
