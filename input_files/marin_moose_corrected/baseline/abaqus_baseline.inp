@@ -1,0 +1,66 @@
+*Heading
+** One C3D8 brick against moose_baseline.i
+** From bicrystal_dns.inp: MAT1_GRN1, original X-tension BCs, 0.05 mm / 1 s.
+** No CZM / UEL / interfacial elements or UEL properties.
+** Cube: 1 mm along each axis; coordinates x,y=-0.5..0.5, z=0..1.
+** UMAT material and texture data are in the companion Mat1 directory; other dependencies may be required.
+*Preprint, echo=NO, model=NO, history=NO, contact=NO
+*Part, name=ONE_CRYSTAL
+*Node
+1, -0.5, -0.5, 0.0
+2,  0.5, -0.5, 0.0
+3,  0.5,  0.5, 0.0
+4, -0.5,  0.5, 0.0
+5, -0.5, -0.5, 1.0
+6,  0.5, -0.5, 1.0
+7,  0.5,  0.5, 1.0
+8, -0.5,  0.5, 1.0
+*Element, type=C3D8, elset=CRYSTAL_ELEM
+1, 1, 2, 3, 4, 5, 6, 7, 8
+*Solid Section, elset=CRYSTAL_ELEM, material=MAT1_GRN1
+,
+*End Part
+*Assembly, name=ASSEMBLY
+*Instance, name=CRYSTAL-1, part=ONE_CRYSTAL
+*End Instance
+*Nset, nset=LEFT, instance=CRYSTAL-1
+1, 4, 5, 8
+*Nset, nset=RIGHT, instance=CRYSTAL-1
+2, 3, 6, 7
+*Nset, nset=BOTTOM, instance=CRYSTAL-1
+1, 2, 5, 6
+*Nset, nset=BACK, instance=CRYSTAL-1
+1, 2, 3, 4
+*Elset, elset=CRYSTAL_ELEM_ASM, instance=CRYSTAL-1
+1,
+*End Assembly
+** Keep the exact user material name to route to MatID=1 GrainID=1.
+*Material, name=MAT1_GRN1
+*Depvar
+70,
+*User Material, constants=2
+768., 1.
+** Roller/symmetry conditions, identical to MOOSE.
+*Boundary
+LEFT, 1, 1, 0.
+BOTTOM, 2, 2, 0.
+BACK, 3, 3, 0.
+*Amplitude, name=RAMP_X, definition=TABULAR, time=STEP TIME
+0., 0., 1., 0.05
+*Step, name=TENSION_X, nlgeom=YES, inc=10000
+*Static
+1e-06, 1., 1e-08, 0.005
+*Boundary, amplitude=RAMP_X
+RIGHT, 1, 1, 1.0
+*Restart, write, frequency=0
+*Output, field, frequency=1
+*Node Output
+U, RF
+*Element Output, directions=YES
+S, LE, SDV
+*Output, history, frequency=1
+*Node Output, nset=RIGHT
+U1, RF1
+*Element Output, elset=CRYSTAL_ELEM_ASM
+S11, SDV11, SDV31
+*End Step

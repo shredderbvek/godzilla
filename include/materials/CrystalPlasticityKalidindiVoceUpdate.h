@@ -26,5 +26,6 @@ protected:
   const Real _xm_gss;
   const Real _ao_sat;
   const Real _n_gss;
+  const bool _is_gss_sat_constant;
   ///}@
 };
